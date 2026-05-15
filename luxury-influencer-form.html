@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Luxury Creators Circle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Tajawal:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:          #D6D8DC;
+  --bg-card:     #DCDEE2;
+  --bg-input:    #E2E4E8;
+  --bg-hover:    #E8EAee;
+  --gold:        #B8902A;
+  --gold-bright: #D4A93A;
+  --gold-light:  #E8C96A;
+  --gold-dim:    #7A5E10;
+  --gold-glow:   rgba(184,144,42,0.14);
+  --gold-line:   rgba(184,144,42,0.35);
+  --border:      rgba(184,144,42,0.25);
+  --border-focus:rgba(184,144,42,0.75);
+  --text-main:   #28272A;
+  --text-mid:    #555258;
+  --text-faint:  #8A888E;
+  --radius:      5px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text-main);
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 400;
+  min-height: 100vh;
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 5rem 2rem 4.5rem;
+  background: var(--bg);
+  position: relative;
+  border-bottom: 1px solid var(--gold-line);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 65% 50% at 50% 0%, rgba(184,144,42,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.star-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.star-svg {
+  width: 50px;
+  height: 50px;
+  filter: drop-shadow(0 0 8px rgba(184,144,42,0.4)) drop-shadow(0 0 20px rgba(184,144,42,0.18));
+}
+
+.hero-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0.26em;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 54px;
+  line-height: 1.0;
+  color: var(--text-main);
+  letter-spacing: 0.04em;
+  margin-bottom: 2rem;
+  direction: ltr;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title em { font-style: italic; color: var(--gold); }
+
+.hero-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.rule-line { width: 80px; height: 0.5px; background: var(--gold-line); }
+.rule-gem  { color: var(--gold); font-size: 9px; letter-spacing: 7px; opacity: 0.7; }
+
+.hero-text {
+  font-size: 15px;
+  line-height: 2.1;
+  color: var(--text-mid);
+  max-width: 500px;
+  margin: 0 auto;
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text strong { color: var(--text-main); font-weight: 500; }
+
+/* ── FORM WRAP ── */
+.form-wrap { max-width: 680px; margin: 0 auto; padding: 3.5rem 1.5rem 6rem; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 3.5rem; }
+
+.sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 2rem; }
+.sec-num { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.2em; color: var(--gold); white-space: nowrap; }
+.sec-line { flex: 1; height: 0.5px; background: var(--gold-line); opacity: 0.7; }
+.sec-label { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 11px; letter-spacing: 0.18em; color: var(--text-faint); white-space: nowrap; }
+
+/* ── FIELDS ── */
+.field { margin-bottom: 1.25rem; }
+
+.lbl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-mid);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.lbl-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+.req { color: var(--gold-dim); font-size: 9px; margin-right: auto; font-weight: 400; text-transform: none; letter-spacing: 0; }
+.opt { font-size: 9px; color: var(--text-faint); margin-right: auto; font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 11px 15px;
+  background: var(--bg-input);
+  border: 1px solid rgba(184,144,42,0.22);
+  border-radius: var(--radius);
+  color: var(--text-main);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  appearance: none;
+}
+
+input::placeholder, textarea::placeholder { color: var(--text-faint); }
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+  background: var(--bg-hover);
+}
+
+input.err { border-color: rgba(180,50,40,0.6); box-shadow: 0 0 0 3px rgba(180,50,40,0.08); }
+
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.sel-wrap { position: relative; }
+.sel-wrap::after { content: '›'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%) rotate(90deg); color: var(--gold); font-size: 18px; pointer-events: none; font-family: 'Cormorant Garamond', serif; }
+
+textarea { min-height: 100px; resize: vertical; line-height: 1.8; }
+
+/* ── CHIPS ── */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.chip {
+  padding: 7px 17px;
+  border: 1px solid rgba(184,144,42,0.3);
+  border-radius: 2px;
+  font-size: 12px;
+  font-family: 'Tajawal', sans-serif;
+  color: var(--text-mid);
+  cursor: pointer;
+  background: var(--bg-input);
+  transition: all 0.15s;
+  letter-spacing: 0.04em;
+}
+
+.chip:hover { border-color: var(--gold); color: var(--gold-dim); background: var(--bg-hover); }
+.chip.on { background: rgba(184,144,42,0.12); border-color: var(--gold); color: var(--gold-dim); font-weight: 500; }
+
+/* ── RADIO ── */
+.radios { display: flex; flex-direction: column; gap: 8px; }
+
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 11px 15px;
+  border: 1px solid rgba(184,144,42,0.22);
+  border-radius: var(--radius);
+  cursor: pointer;
+  background: var(--bg-input);
+  font-size: 13px;
+  color: var(--text-mid);
+  transition: all 0.15s;
+}
+
+.radio:hover { border-color: var(--gold); color: var(--text-main); background: var(--bg-hover); }
+.radio.on { background: rgba(184,144,42,0.1); border-color: var(--gold); color: var(--gold-dim); }
+
+.rdot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--text-faint); flex-shrink: 0; transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
+.radio.on .rdot { border-color: var(--gold); background: var(--gold); }
+.radio.on .rdot::after { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--bg-input); }
+
+/* ── VISION CARD ── */
+.vision-card {
+  background: var(--bg-card);
+  border: 1px solid var(--gold-line);
+  border-radius: var(--radius);
+  padding: 2rem;
+  position: relative;
+}
+
+.vision-card::before { content: '✦'; position: absolute; top: -11px; right: 24px; background: var(--bg); padding: 0 10px; color: var(--gold); font-size: 13px; }
+
+.vision-q { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; font-style: italic; color: var(--text-main); margin-bottom: 8px; line-height: 1.55; }
+.vision-hint { font-size: 12px; color: var(--text-faint); margin-bottom: 16px; line-height: 1.7; }
+
+/* ── SUBMIT ── */
+.submit-area { text-align: center; margin-top: 4rem; }
+.sub-orn { display: flex; align-items: center; gap: 14px; margin-bottom: 2.5rem; }
+.sub-orn-line { flex: 1; height: 0.5px; background: var(--gold-line); opacity: 0.7; }
+.sub-orn-txt { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 12px; color: var(--text-faint); letter-spacing: 0.14em; white-space: nowrap; }
+
+.sub-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 54px;
+  background: var(--gold);
+  color: #FAF5E8;
+  border: none;
+  border-radius: 2px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sub-btn:hover { background: var(--gold-bright); }
+.sub-btn:active { transform: scale(0.99); }
+
+.sub-note { margin-top: 1.25rem; font-size: 11px; color: var(--text-faint); letter-spacing: 0.06em; }
+
+/* ── SUCCESS ── */
+.success { display: none; text-align: center; padding: 6rem 2rem; }
+.success.show { display: block; }
+.success-star { font-size: 44px; margin-bottom: 1.75rem; display: block; filter: drop-shadow(0 0 10px rgba(184,144,42,0.4)); }
+.success-title { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; color: var(--text-main); margin-bottom: 1rem; }
+.success-title em { font-style: italic; color: var(--gold); }
+.success-sub { font-size: 14px; color: var(--text-mid); line-height: 2; }
+
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px); background: #3A1A14; color: #F0C8A0; padding: 11px 28px; border-radius: 3px; font-size: 13px; font-family: 'Tajawal', sans-serif; border: 1px solid rgba(200,90,60,0.4); transition: transform 0.3s; z-index: 999; white-space: nowrap; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 520px) {
+  .g2 { grid-template-columns: 1fr; }
+  .hero-title { font-size: 36px; }
+  .hero { padding: 4rem 1.5rem 3.5rem; }
+  .form-wrap { padding: 2.5rem 1rem 5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="star-wrap">
+    <svg class="star-svg" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#E8C96A"/>
+          <stop offset="35%"  stop-color="#C9A84C"/>
+          <stop offset="65%"  stop-color="#E0C060"/>
+          <stop offset="100%" stop-color="#8A6A1A"/>
+        </linearGradient>
+      </defs>
+      <polygon points="26,2 29.8,22.2 50,26 29.8,29.8 26,50 22.2,29.8 2,26 22.2,22.2" fill="url(#sg)" opacity="0.95"/>
+      <polygon points="26,2 29.8,22.2 50,26 29.8,29.8 26,50 22.2,29.8 2,26 22.2,22.2" fill="none" stroke="#E8C96A" stroke-width="0.5" opacity="0.5"/>
+      <circle cx="26" cy="26" r="3.2" fill="#F0D878" opacity="0.9"/>
+      <line x1="26" y1="0" x2="26" y2="52" stroke="#B8902A" stroke-width="0.4" opacity="0.25"/>
+      <line x1="0"  y1="26" x2="52" y2="26" stroke="#B8902A" stroke-width="0.4" opacity="0.25"/>
+      <line x1="7"  y1="7"  x2="45" y2="45" stroke="#B8902A" stroke-width="0.3" opacity="0.15"/>
+      <line x1="45" y1="7"  x2="7"  y2="45" stroke="#B8902A" stroke-width="0.3" opacity="0.15"/>
+    </svg>
+  </div>
+
+  <span class="hero-eyebrow">Exclusive · By Invitation of Excellence</span>
+  <h1 class="hero-title"><em>Luxury</em> Creators<br>Circle</h1>
+
+  <div class="hero-rule">
+    <div class="rule-line"></div>
+    <span class="rule-gem">✦ ✦ ✦</span>
+    <div class="rule-line"></div>
+  </div>
+
+  <p class="hero-text">
+    أهلاً بكِ في عالم <strong>وندر</strong>.<br>
+    نحن نبحث عن المبدعات اللواتي يجسّدن الفخامة في أبهى صورها.<br>
+    إذا كنتِ ممن يصنعون المحتوى بشغف ويضعون <strong>الجودة فوق كل اعتبار</strong>،<br>
+    يسعدنا انضمامكِ إلينا في هذه الرحلة الاستثنائية.
+  </p>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap">
+  <div id="form-wrap">
+
+    <div class="section">
+      <div class="sec-head"><span class="sec-num">I</span><div class="sec-line"></div><span class="sec-label">Basic Information</span><div class="sec-line" style="width:18px;flex:none"></div></div>
+      <div class="field">
+        <div class="lbl"><span class="lbl-dot"></span> الاسم الكامل <span class="req">مطلوب</span></div>
+        <input type="text" id="f-name" placeholder="اسمك الثلاثي كاملاً"/>
+      </div>
+      <div class="field">
+        <div class="lbl"><span class="lbl-dot"></span> رقم الهاتف <span class="req">مطلوب</span></div>
+        <input type="tel" id="f-phone" placeholder="07xxxxxxxx"/>
+      </div>
+      <div class="g2">
+        <div class="field">
+          <div class="lbl"><span class="lbl-dot"></span> المحافظة <span class="req">مطلوب</span></div>
+          <div class="sel-wrap">
+            <select id="f-city">
+              <option value="">— اختاري —</option>
+              <option>بغداد</option><option>البصرة</option><option>الموصل</option>
+              <option>أربيل</option><option>النجف</option><option>كربلاء</option>
+              <option>كركوك</option><option>الأنبار</option><option>ذي قار</option>
+              <option>ميسان</option><option>واسط</option><option>المثنى</option>
+              <option>القادسية</option><option>بابل</option><option>ديالى</option>
+              <option>صلاح الدين</option><option>دهوك</option><option>السليمانية</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <div class="lbl"><span class="lbl-dot"></span> تاريخ الميلاد <span class="req">مطلوب</span></div>
+          <input type="date" id="f-birth"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-head"><span class="sec-num">II</span><div class="sec-line"></div><span class="sec-label">Social Presence</span><div class="sec-line" style="width:18px;flex:none"></div></div>
+      <div class="field">
+        <div class="lbl"><span class="lbl-dot"></span> اسم حساب الإنستغرام <span class="req">مطلوب</span></div>
+        <input type="text" id="f-insta-name" placeholder="@username"/>
+      </div>
+      <div class="field">
+        <div class="lbl"><span class="lbl-dot"></span> رابط حساب الإنستغرام <span class="req">مطلوب</span></div>
+        <input type="url" id="f-insta-url" placeholder="https://www.instagram.com/username"/>
+      </div>
+      <div class="field">
+        <div class="lbl"><span class="lbl-dot"></span> اسم حساب التيك توك <span class="opt">اختياري</span></div>
+        <input type="text" id="f-tiktok-name" placeholder="@username"/>
+      </div>
+      <div class="field">
+        <div class="lbl"><span class="lbl-dot"></span> رابط حساب التيك توك <span class="opt">اختياري</span></div>
+        <input type="url" id="f-tiktok-url" placeholder="https://www.tiktok.com/@username"/>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-head"><span class="sec-num">III</span><div class="sec-line"></div><span class="sec-label">Professional Background</span><div class="sec-line" style="width:18px;flex:none"></div></div>
+      <div class="g2">
+        <div class="field">
+          <div class="lbl"><span class="lbl-dot"></span> المهنة الحالية <span class="req">مطلوب</span></div>
+          <input type="text" id="f-job" placeholder="مثال: موظفة، طالبة..."/>
+        </div>
+        <div class="field">
+          <div class="lbl"><span class="lbl-dot"></span> الاختصاص <span class="req">مطلوب</span></div>
+          <input type="text" id="f-spec" placeholder="مثال: طب، فنون، تسويق..."/>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-head"><span class="sec-num">IV</span><div class="sec-line"></div><span class="sec-label">Creative Vision</span><div class="sec-line" style="width:18px;flex:none"></div></div>
+      <div class="vision-card">
+        <p class="vision-q">بعيداً عن المظاهر، كيف تترجمين مفهوم الـ Luxury في قصصكِ البصرية؟</p>
+        <p class="vision-hint">لا توجد إجابة صحيحة أو خاطئة — نريد أن نعرف رؤيتكِ الحقيقية ✦</p>
+        <textarea id="f-luxury" placeholder="شاركينا وجهة نظركِ الخاصة..."></textarea>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-head"><span class="sec-num">V</span><div class="sec-line"></div><span class="sec-label">Content Category</span><div class="sec-line" style="width:18px;flex:none"></div></div>
+      <div class="field">
+        <div class="lbl"><span class="lbl-dot"></span> تصنيف محتواكِ <span class="req">مطلوب · اختاري ما ينطبق</span></div>
+        <div class="chips" id="chips-content">
+          <button class="chip" onclick="tog(this)">Lifestyle</button>
+          <button class="chip" onclick="tog(this)">Beauty</button>
+          <button class="chip" onclick="tog(this)">Fashion</button>
+          <button class="chip" onclick="tog(this)">Travel</button>
+          <button class="chip" onclick="tog(this)">Makeup</button>
+          <button class="chip" onclick="tog(this)">Skincare</button>
+          <button class="chip" onclick="tog(this)">غير ذلك</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-head"><span class="sec-num">VI</span><div class="sec-line"></div><span class="sec-label">Content Analysis</span><div class="sec-line" style="width:18px;flex:none"></div></div>
+      <div class="field">
+        <div class="lbl"><span class="lbl-dot"></span> ما نوع المحتوى الأقرب لشخصيتكِ؟ <span class="req">مطلوب</span></div>
+        <div class="radios" id="r-personality">
+          <div class="radio" onclick="sel(this,'r-personality')"><div class="rdot"></div> محتوى إلهامي وطموح</div>
+          <div class="radio" onclick="sel(this,'r-personality')"><div class="rdot"></div> محتوى جمالي وعناية بالنفس</div>
+          <div class="radio" onclick="sel(this,'r-personality')"><div class="rdot"></div> محتوى فاخر وأسلوب حياة راقٍ</div>
+          <div class="radio" onclick="sel(this,'r-personality')"><div class="rdot"></div> محتوى ترفيهي وخفيف</div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:1.5rem">
+        <div class="lbl"><span class="lbl-dot"></span> ما أكثر محتوى يحقق تفاعلاً عندكِ؟ <span class="req">مطلوب</span></div>
+        <div class="radios" id="r-engage">
+          <div class="radio" onclick="sel(this,'r-engage')"><div class="rdot"></div> Reels وفيديوهات قصيرة</div>
+          <div class="radio" onclick="sel(this,'r-engage')"><div class="rdot"></div> صور وأوتفيتات</div>
+          <div class="radio" onclick="sel(this,'r-engage')"><div class="rdot"></div> ستوريات تفاعلية</div>
+          <div class="radio" onclick="sel(this,'r-engage')"><div class="rdot"></div> مراجعات ومقارنات</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-head"><span class="sec-num">VII</span><div class="sec-line"></div><span class="sec-label">Collaboration Preferences</span><div class="sec-line" style="width:18px;flex:none"></div></div>
+      <div class="field">
+        <div class="lbl"><span class="lbl-dot"></span> تفضيلات التعاون <span class="req">مطلوب · اختاري ما ينطبق</span></div>
+        <div class="chips" id="chips-collab">
+          <button class="chip" onclick="tog(this)">Long-term</button>
+          <button class="chip" onclick="tog(this)">Quick Campaigns</button>
+          <button class="chip" onclick="tog(this)">Launch Campaigns</button>
+          <button class="chip" onclick="tog(this)">Exclusive Collaborations</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-head"><span class="sec-num">VIII</span><div class="sec-line"></div><span class="sec-label">Audience Insights</span><div class="sec-line" style="width:18px;flex:none"></div></div>
+      <div class="field">
+        <div class="lbl"><span class="lbl-dot"></span> سمات مجتمعكِ المتابع <span class="req">مطلوب · اختاري ما ينطبق</span></div>
+        <div class="chips" id="chips-audience">
+          <button class="chip" onclick="tog(this)">يهتم بالفخامة والتميز</button>
+          <button class="chip" onclick="tog(this)">يهتم بالجمال والعناية</button>
+          <button class="chip" onclick="tog(this)">يحب تجربة براندات جديدة</button>
+          <button class="chip" onclick="tog(this)">يبحث عن الجودة لا السعر</button>
+          <button class="chip" onclick="tog(this)">جمهور عام</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-head"><span class="sec-num">IX</span><div class="sec-line"></div><span class="sec-label">Purchasing Power</span><div class="sec-line" style="width:18px;flex:none"></div></div>
+      <div class="field">
+        <div class="lbl"><span class="lbl-dot"></span> هل جمهوركِ يمتلك قوة شرائية جيدة؟ <span class="req">مطلوب</span></div>
+        <div class="radios" id="r-purchase">
+          <div class="radio" onclick="sel(this,'r-purchase')"><div class="rdot"></div> نعم، قوة شرائية عالية</div>
+          <div class="radio" onclick="sel(this,'r-purchase')"><div class="rdot"></div> متوسطة</div>
+          <div class="radio" onclick="sel(this,'r-purchase')"><div class="rdot"></div> لا أعلم</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-area">
+      <div class="sub-orn">
+        <div class="sub-orn-line"></div>
+        <span class="sub-orn-txt">✦ &nbsp; أنتِ على وشك الانضمام &nbsp; ✦</span>
+        <div class="sub-orn-line"></div>
+      </div>
+      <button class="sub-btn" onclick="doSubmit()">إرسال الاستمارة &nbsp;›</button>
+      <p class="sub-note">🔒 &nbsp; معلوماتك محمية وسرية تماماً</p>
+    </div>
+
+  </div>
+
+  <div class="success" id="success">
+    <span class="success-star">★</span>
+    <h2 class="success-title">شكراً <em>لكِ</em></h2>
+    <p class="success-sub">تم استلام معلوماتكِ بنجاح<br>سنكون على تواصل في أقرب وقت ✦</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function tog(el){ el.classList.toggle('on'); }
+function sel(el,g){ document.querySelectorAll('#'+g+' .radio').forEach(r=>r.classList.remove('on')); el.classList.add('on'); }
+function showToast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3200); }
+function doSubmit(){
+  const req=['f-name','f-phone','f-city','f-birth','f-insta-name','f-insta-url','f-job','f-spec'];
+  let ok=true;
+  req.forEach(id=>{ const el=document.getElementById(id); if(!el.value.trim()){ el.classList.add('err'); ok=false; } else el.classList.remove('err'); });
+  if(!document.querySelectorAll('#chips-content .on').length) ok=false;
+  if(!document.querySelectorAll('#r-personality .on').length) ok=false;
+  if(!document.querySelectorAll('#r-engage .on').length) ok=false;
+  if(!document.querySelectorAll('#r-purchase .on').length) ok=false;
+  if(!ok){ showToast('يرجى تعبئة جميع الحقول المطلوبة ✦'); window.scrollTo({top:0,behavior:'smooth'}); return; }
+  document.getElementById('form-wrap').style.display='none';
+  document.getElementById('success').classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
